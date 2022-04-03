@@ -11,11 +11,11 @@ import closedIcon from './closedIcon.png'
 
 function Login() {
 
-  const [data,setData] = useState({login:'', password:''})
   const [invisible,setInvisible] = useState(true)
+  const[loginData,setLoginData] = useState({login:'',password:''})
 
   const handleForm = (e) => {
-    setData(oldData => {
+    setLoginData(oldData => {
       return{
         ...oldData,
         [e.target.name] : e.target.value 
@@ -23,14 +23,23 @@ function Login() {
     })
   }
 
-  const handleSubmit = (e)=> {
-    e.preventDefault()
-    console.log(data)
-  }
 
   const handleInvisibility = () => {
     setInvisible(!invisible)
   }
+
+    const sendData = () =>{
+      fetch('http://localhost:4001/login', {
+      method: 'POST',
+      body: JSON.stringify(loginData),
+      headers: { 'Content-Type': 'application/json',mode: 'no-cors' }
+      
+  }).then(res => res.json())
+  .then(json => console.log(json))
+
+  }
+
+
 
 
   return (
@@ -39,15 +48,15 @@ function Login() {
         <img className = 'image' src = {imagem} alt = 'imagem'/>
        
         <div className='form'>
-          <form onSubmit={handleSubmit}>
-              <FormElement placeholder = 'Login' name = 'login' type = 'text' value = {data.login} onChange={handleForm}/>
+          <form onSubmit={sendData}>
+              <FormElement placeholder = 'Login' name = 'login' type = 'text' value = {loginData.login} onChange={handleForm}/>
              <span 
                 className='span--input'><FormElement placeholder = 'Senha' name = 'password' type = {invisible? 'password': 'text'}
-                value = {data.password} onChange={handleForm}/> 
+                value = {loginData.password} onChange={handleForm}/> 
                 <img className='icon--image' src = {invisible?iconImage:closedIcon} alt = 'icon' onClick={handleInvisibility}/> 
               </span> 
           </form>
-          <button type = 'submit' className='loginButton' onClick={handleSubmit}> Entrar </button>
+          <button type = 'submit' className='loginButton' onClick={sendData}> Entrar </button>
           <Link to = {'/signup'} style={{ textDecoration: 'none', color:'#25BE25' }} >
             <h3 className='signUp-btn'>Cadastre-se</h3>
           </Link>
