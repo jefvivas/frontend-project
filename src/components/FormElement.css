@@ -1,10 +1,10 @@
-input{
-    width: 160px;
-    padding: 12px;
-    margin-left: 66px;
-    margin-bottom: 15px;
+input {
+  width: 160px;
+  padding: 12px;
+  margin-left: 66px;
+  margin-bottom: 15px;
 }
 
-input:focus-within{
-    background-color: rgba(165, 221, 177, 0.719);
+input:focus-within {
+  background-color: rgba(165, 221, 177, 0.719);
 }

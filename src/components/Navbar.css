@@ -1,15 +1,15 @@
-.title{
-    margin-top: 10px;
-    font-size: 30px;
-    font-weight: bold;
-    display: table;
-    margin: 0 auto;
+.title {
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  display: table;
+  margin: 0 auto;
 }
-.navbar{
-    height:50px;
-    width: 100%;
+.navbar {
+  height: 50px;
+  width: 100%;
 }
 
-.navbar:hover{
-    color: rgb(17, 236, 10);
+.navbar:hover {
+  color: rgb(17, 236, 10);
 }
