@@ -11,7 +11,7 @@ const Signup = () => {
     password: "",
     passwordConfirmation: "",
   });
-  const [erroLogin, setErroLogin] = useState("");
+  const [erroSignUp, setErroSignUp] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,12 +32,13 @@ const Signup = () => {
     });
 
     const json = await response.json();
-    if (json.message === "Usuario criado com sucesso") {
+    console.log(json)
+    if (json.statusCode === 200) {
       navigate("/");
-    } else if (json.message === "Usuario ja existe") {
-      setErroLogin("Usuario já cadastrado");
+    } else if (json.body   === "Este usuário já existe") {
+      setErroSignUp("Usuario já cadastrado");
     } else {
-      setErroLogin("Senhas não coincidem");
+      setErroSignUp("Senhas não coincidem");
     }
   };
 
@@ -46,7 +47,7 @@ const Signup = () => {
       <Navbar />
       <img className="image--signup" src={imagem} alt="imagem" />
       <div className="form">
-        {erroLogin ? <span className="erroLogin">{erroLogin}</span> : ""}
+        {erroSignUp ? <span className="erroLogin">{erroSignUp}</span> : ""}
 
         <form>
           <FormElement

@@ -2,14 +2,15 @@ import FormElement from "./components/FormElement";
 import imagem from "./login.png";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import iconImage from "./icon.png";
 import closedIcon from "./closedIcon.png";
 
 function Login() {
   const [invisible, setInvisible] = useState(true);
   const [loginData, setLoginData] = useState({ login: "", password: "" });
+  const [erroLogin, setErroLogin] = useState("");
+
 
   const handleForm = (e) => {
     setLoginData((oldData) => {
@@ -32,14 +33,18 @@ function Login() {
     });
 
     const json = await response.json();
-    localStorage.setItem('token',json.token)
+    if(json.statusCode ===200){
+      localStorage.setItem('token',true)
+      localStorage.setItem('user',json.body.login)
+      navigate('/hello')
+    }else{
+      setErroLogin(json.body)
+    }
   };
 
-  const handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
-        sendData();
-    }
-}
+  const navigate = useNavigate()
+
+
 
   return (
     <div className="container--login">
@@ -48,13 +53,13 @@ function Login() {
 
       <div className="form">
         <form onSubmit={sendData}>
+        {erroLogin ? <span className="erroLogin">{erroLogin}</span> : ""}
           <FormElement
             placeholder="Login"
             name="login"
             type="text"
             value={loginData.login}
             onChange={handleForm}
-            onKeyPress={handleKeyPress}
           />
           <span className="span--input">
             <FormElement
@@ -63,7 +68,6 @@ function Login() {
               type={invisible ? "password" : "text"}
               value={loginData.password}
               onChange={handleForm}
-              onKeyPress={handleKeyPress}
             />
             <img
               className="icon--image"
