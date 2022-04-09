@@ -9,6 +9,7 @@ function FormElement(props) {
         value={props.value}
         type={props.type}
         onChange={props.onChange}
+        onKeyPress={props.onKeyPress}
       ></input>
     </div>
   );

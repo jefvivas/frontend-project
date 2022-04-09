@@ -24,6 +24,12 @@ const Signup = () => {
     });
   };
 
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      sendData();
+    }
+  }
+
   const sendData = async () => {
     const response = await fetch("http://localhost:4001/register", {
       method: "POST",
@@ -35,7 +41,19 @@ const Signup = () => {
     console.log(json)
     if (json.statusCode === 200) {
       navigate("/");
-    } else if (json.body   === "Este usuário já existe") {
+    }else if (json.body === "Campo name não enviado para criação de conta"){
+      setErroSignUp('Preencha o campo de nome')
+    }
+    else if (json.body === "Campo login não enviado para criação de conta"){
+      setErroSignUp('Preencha o campo de login')
+    }
+    else if (json.body === "Campo password não enviado para criação de conta"){
+      setErroSignUp('Preencha o campo de senha')
+    }
+    else if (json.body === "Campo passwordConfirmation não enviado para criação de conta"){
+      setErroSignUp('Preencha o campo de confirmação')
+    }
+     else if (json.body   === "Este usuário já existe") {
       setErroSignUp("Usuario já cadastrado");
     } else {
       setErroSignUp("Senhas não coincidem");
@@ -56,6 +74,7 @@ const Signup = () => {
             type="text"
             value={signupData.name}
             onChange={handleSignupForm}
+            onKeyPress={handleKeyPress}
           />
           <FormElement
             placeholder="Login"
@@ -63,6 +82,7 @@ const Signup = () => {
             type="text"
             value={signupData.login}
             onChange={handleSignupForm}
+            onKeyPress={handleKeyPress}
           />
           <FormElement
             placeholder="Senha"
@@ -70,6 +90,7 @@ const Signup = () => {
             type="password"
             value={signupData.password}
             onChange={handleSignupForm}
+            onKeyPress={handleKeyPress}
           />
           <FormElement
             placeholder="Confirmação de Senha"
@@ -77,6 +98,7 @@ const Signup = () => {
             type="password"
             value={signupData.passwordConfirmation}
             onChange={handleSignupForm}
+            onKeyPress={handleKeyPress}
           />
         </form>
         <button type="submit" className="loginButton" onClick={sendData}>

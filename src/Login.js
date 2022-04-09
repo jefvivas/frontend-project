@@ -44,7 +44,11 @@ function Login() {
 
   const navigate = useNavigate()
 
-
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      sendData();
+    }
+  }
 
   return (
     <div className="container--login">
@@ -60,6 +64,8 @@ function Login() {
             type="text"
             value={loginData.login}
             onChange={handleForm}
+            onKeyPress={handleKeyPress}
+
           />
           <span className="span--input">
             <FormElement
@@ -68,6 +74,8 @@ function Login() {
               type={invisible ? "password" : "text"}
               value={loginData.password}
               onChange={handleForm}
+              onKeyPress={handleKeyPress}
+
             />
             <img
               className="icon--image"
