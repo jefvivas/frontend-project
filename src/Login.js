@@ -33,9 +33,10 @@ function Login() {
     });
 
     const json = await response.json();
+    console.log(json)
     if(json.statusCode ===200){
       localStorage.setItem('token',true)
-      localStorage.setItem('user',json.body.login)
+      localStorage.setItem('user',json.body.name)
       navigate('/hello')
     }else{
       setErroLogin(json.body)

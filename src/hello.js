@@ -9,8 +9,11 @@ function Hello() {
   };
 
   return (
-    localStorage.getItem('token')===true?
+    
+    localStorage.getItem('token')==='true' && localStorage.getItem('user')!==''?
+    
     <div>
+      {console.log(localStorage.getItem('user')==='')}
       <h1>Hello, {localStorage.getItem("user")}</h1>
       <button onClick={logout}>logout</button>
     </div>:
